@@ -1,2 +1,13 @@
 .errorBanner { margin: 10px 18px 0; padding: 9px 14px; border-radius: 9px; background: #fff0d8; color: #8a5416; font-size: 11px; text-align: center; }
 .learnActions { display: flex; gap: 7px; }
+.graphCard { margin: 12px 18px 0; padding: 15px 20px; border: 1px solid #d8d3c8; border-radius: 13px; background: #fffdf7; display: flex; align-items: center; justify-content: space-between; gap: 18px; animation: graphIn .35s ease-out; }
+.graphCard > div:first-child { display: flex; flex-direction: column; gap: 3px; }
+.graphCard > div:first-child b { font-size: 9px; letter-spacing: .12em; color: #196c55; }
+.graphCard > div:first-child span { font-size: 10px; color: #7b827d; }
+.graphFlow { display: flex; align-items: center; overflow-x: auto; }
+.graphFlow > span { display: flex; align-items: center; }
+.graphFlow i { color: #a9aaa3; margin: 0 5px; font-style: normal; }
+.node { display: inline-block; white-space: nowrap; padding: 7px 10px; border-radius: 20px; background: #e8eee9; color: #24483c; font-size: 10px; }
+.node.n0 { background: #16231f; color: white; }.node.n1 { background: #e6573f; color: white; }.node.n2 { background: #dcebe5; }.node.n3 { background: #eee7d8; }
+@keyframes graphIn { from { opacity: 0; transform: translateY(-8px); } }
+@media(max-width:760px) { .graphCard { align-items: flex-start; flex-direction: column; }.graphFlow { width:100%; } }
