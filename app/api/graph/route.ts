@@ -24,10 +24,10 @@ async function query(statement: string, parameters: Record<string, unknown> = {}
 
 export async function POST(request: Request) {
   try {
-    const { phrase, reading, meaning, situation } = await request.json();
+    const { phrase, reading, meaning, situation, kind } = await request.json();
     const topic = situation === 'At the clinic' ? 'Health' : situation === 'Restaurant' ? 'Food' : 'Daily life';
     await query(`MERGE (u:Learner {id: $userId})
-      MERGE (p:Phrase {japanese: $phrase}) SET p.reading=$reading, p.meaning=$meaning
+      MERGE (p:${kind === 'flashcard' ? 'Flashcard' : 'Phrase'} {japanese: $phrase}) SET p.reading=$reading, p.meaning=$meaning
       MERGE (s:Situation {name: $situation}) MERGE (t:Topic {name: $topic})
       MERGE (u)-[:LEARNED]->(p) MERGE (p)-[:USEFUL_IN]->(s) MERGE (p)-[:ABOUT]->(t)`,
       { userId: 'tokyo-hacker', phrase, reading, meaning, situation, topic });
