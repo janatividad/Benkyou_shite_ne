@@ -2,8 +2,8 @@ export async function POST(request: Request) {
   try {
     const key = process.env.SHISA_API_KEY;
     if (!key) return Response.json({ error: 'SHISA API key is not configured' }, { status: 503 });
-    const { text } = await request.json();
-    const body = new FormData(); body.append('text', text); body.append('source_lang', 'ja'); body.append('target_lang', 'en'); body.append('stream', 'false');
+    const { text, sourceLang = 'ja' } = await request.json();
+    const body = new FormData(); body.append('text', text); body.append('source_lang', sourceLang); body.append('target_lang', sourceLang === 'en' ? 'ja' : 'en'); body.append('stream', 'false');
     const response = await fetch('https://api.shisa.ai/translate/', { method: 'POST', headers: { Authorization: `Bearer ${key}` }, body });
     const data = await response.json();
     if (!response.ok) return Response.json({ error: data.error || 'Translation failed' }, { status: response.status });
